@@ -1,8 +1,8 @@
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 
-/* LED0 está definido en el devicetree del nucleo_f429zi */
-#define LED0_NODE DT_ALIAS(led0)
+/* Ahora usamos el alias app-led */
+#define LED0_NODE DT_ALIAS(app_led)
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 
 int main(void)
@@ -11,7 +11,7 @@ int main(void)
 
     while (1) {
         gpio_pin_toggle_dt(&led);
-        k_sleep(K_MSEC(CONFIG_LED_BLINK_SLEEP));
+        k_sleep(K_MSEC(CONFIG_APP_HEARTBEAT_PERIOD_MS));
     }
     return 0;
 }
