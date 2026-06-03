@@ -1,0 +1,36 @@
+/dts-v1/;
+
+#include <st/f4/stm32f429Xi.dtsi>
+#include <st/f4/stm32f429zitx-pinctrl.dtsi>
+
+/ {
+        model = "My Board 2";
+        compatible = "gustavo,my-board2";
+
+        chosen {
+                zephyr,sram = &sram0;
+                zephyr,flash = &flash0;
+        };
+};
+&clk_hse {
+        hse-bypass;
+        clock-frequency = <DT_FREQ_M(8)>;
+        status = "okay";
+};
+
+&pll {
+        div-m = <8>;
+        mul-n = <336>;
+        div-p = <2>;
+        div-q = <7>;
+        clocks = <&clk_hse>;
+        status = "okay";
+};
+
+&rcc {
+        clocks = <&pll>;
+        clock-frequency = <DT_FREQ_M(168)>;
+        ahb-prescaler = <1>;
+        apb1-prescaler = <4>;
+        apb2-prescaler = <2>;
+};
